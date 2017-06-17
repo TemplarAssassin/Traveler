@@ -23,19 +23,7 @@ public class LocationController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public Location getLocation(@PathVariable long id) {
-        Location zhejiang = new Location();
-        zhejiang.setId(1l);
-        zhejiang.setName("Zhejiang");
-
-        Location hangzhou = new Location();
-        hangzhou.setId(2l);
-        hangzhou.setName("Hangzhou");
-
-        List<Location> sublocations = new ArrayList<>();
-        sublocations.add(hangzhou);
-
-        zhejiang.setSubLocations(sublocations);
-
-        return zhejiang;
+        return locationService.findLocationById(id);
     }
+
 }
