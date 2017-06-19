@@ -1,7 +1,8 @@
 package com.traveler.location.repository;
 
 import com.traveler.location.domain.Location;
-import com.traveler.location.domain.Location.Category;
+import com.traveler.location.domain.Category;
+import com.traveler.location.domain.Size;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,11 @@ public interface LocationRepository extends CrudRepository<Location, Long>{
     /**
      * Return all locations having the same category
      */
-    List<Location> findByCategory(Category category);
+    List<Location> findByCategory(String category);
+
+    /**
+     * Return all locations having the same size
+     */
+    List<Location> findBySize(String size);
 
 }

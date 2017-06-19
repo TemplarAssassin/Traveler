@@ -1,76 +1,39 @@
 package com.traveler.location.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name="LOCATION")
-public class Location {
-
-    public enum Category{
-        NONE,
-        ISLAND,
-        NATIONAL_PARK
-    }
-
-    public enum Size{
-        CONTINENT("CON"),
-        COUNTRY("COU"),
-        STATE("STA"),
-        PROVINCE("PRO"),
-        CITY("CIT"),
-        NONE("NONE");
-
-        private final String value;
-
-        Size(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public static Size parse(String value) {
-            Size size = null;
-            for(Size s : Size.values()) {
-                if(s.getValue().equals(value)) {
-                    size = s;
-                    return size;
-                }
-            }
-
-            return Size.NONE;
-        }
-    }
+public class Location implements Serializable{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "PARENT_ID")
-    private Long parentId;
-
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING)
     @Column
-    private Category category;
+    private String category;
 
-    @Enumerated(EnumType.STRING)
     @Column
     private String size;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="PARENT_ID", referencedColumnName = "ID")
-    private Location parentLocation;
+    @JsonIgnore
+    @Column(name = "PARENT_ID", nullable = true)
+    private Long parentId;
 
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    @JoinColumn(name = "ID", referencedColumnName = "PARENT_ID")
+
+    @JsonIgnore
+    @JoinColumn(name = "PARENT_ID")
     private Set<Location> subLocations;
 
     public Long getId() {
@@ -98,19 +61,11 @@ public class Location {
     }
 
     public Category getCategory() {
-        return category;
+        return Category.parse(this.category);
     }
 
     public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+        this.category = category.getValue();
     }
 
     public Size getSize() {
@@ -121,11 +76,11 @@ public class Location {
         this.size = size.getValue();
     }
 
-    public Location getParentLocation() {
-        return parentLocation;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParentLocation(Location parentLocation) {
-        this.parentLocation = parentLocation;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }

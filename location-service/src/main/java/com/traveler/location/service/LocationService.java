@@ -15,7 +15,10 @@ public interface LocationService {
 
     List<Location> findLocationByName(String name);
 
-    Set<Location> findSubLocation(Long id);
+    List<Location> findLocationByCategory(String category);
 
+    List<Location> findLocationBySize(String size);
+
+    Set<Location> findSubLocations(Long id);
 
 }
