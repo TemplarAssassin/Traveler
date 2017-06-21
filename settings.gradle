@@ -1,2 +1,3 @@
 include 'location-service'
+include 'gateway'
 include 'registry'
