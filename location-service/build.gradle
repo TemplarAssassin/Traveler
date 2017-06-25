@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: "io.spring.dependency-management"
 
 version = 'DEV-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -28,9 +29,29 @@ ext {
 
 dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
-	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+
+	//compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
+
+	compile("org.springframework.boot:spring-boot-starter-web")
+
+	//compile 'org.springframework.cloud:spring-cloud-starter-aws'
+
+	// JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Use MySQL Connector-J
+	compile 'mysql:mysql-connector-java'
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.8.8'
+
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-aws-context', version: '1.2.1.RELEASE'
+
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws-jdbc', version: '1.2.1.RELEASE'
+
 }
 
 dependencyManagement {
