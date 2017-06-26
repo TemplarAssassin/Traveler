@@ -32,14 +32,14 @@ public class LocationController {
         return locationService.findLocationByName(name);
     }
 
-    @RequestMapping(path = "category/{category}", method = RequestMethod.GET)
-    public List<Location> getLocationByCatecory(@PathVariable String category) {
-        return locationService.findLocationByCategory(category);
-    }
-
     @RequestMapping(path = "size/{size}", method = RequestMethod.GET)
     public List<Location> getLocationBySize(@PathVariable String size) {
         return locationService.findLocationBySize(size);
+    }
+
+    @RequestMapping(path = "category/{category}", method = RequestMethod.GET)
+    public List<Location> getLocationByCategory(@PathVariable Long categoryId) {
+        return locationService.findLocationByCategory(categoryId);
     }
 
     @RequestMapping(path = "{id}/sublocations", method = RequestMethod.GET)

@@ -3,6 +3,7 @@ package com.traveler.location.service;
 import com.traveler.location.domain.Category;
 import com.traveler.location.domain.Location;
 import com.traveler.location.domain.Size;
+import com.traveler.location.repository.CategoryRepository;
 import com.traveler.location.repository.LocationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,25 +26,19 @@ public class LocationServiceImpl implements LocationService{
     @Autowired
     private LocationRepository locationRepo;
 
+    @Autowired
+    private CategoryRepository categoryRepo;
+
     @Override
     public Location findLocationById(Long id) {
         Assert.notNull(id, "Location id cannot be null");
-        return locationRepo.findById(id);
+        return locationRepo.findOne(id);
     }
 
     @Override
     public List<Location> findLocationByName(String name) {
         Assert.hasLength(name, "Location name cannot be empty");
         return locationRepo.findByName(name);
-    }
-
-    @Override
-    public List<Location> findLocationByCategory(String category) {
-        Assert.hasLength(category, "Location category cannot be empty");
-
-        Category c = Category.parse(category);
-        Assert.isTrue(!Category.UNKNOWN.equals(c), "Unknown location category");
-        return locationRepo.findByCategory(category);
     }
 
     @Override
@@ -68,5 +63,11 @@ public class LocationServiceImpl implements LocationService{
         }
 
         return subLocations;
+    }
+
+    @Override
+    public List<Location> findLocationByCategory(Long categoryId) {
+        Assert.notNull(categoryId, "Category id cannot be null");
+        return categoryRepo.findOne(categoryId).getLocations();
     }
 }

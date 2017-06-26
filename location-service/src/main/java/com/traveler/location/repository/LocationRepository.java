@@ -15,19 +15,9 @@ import java.util.List;
 public interface LocationRepository extends CrudRepository<Location, Long>{
 
     /**
-     * Get a location for a given id
-     */
-    Location findById(Long id);
-
-    /**
      * Get a list of potential locations given a location name
      */
     List<Location> findByName(String name);
-
-    /**
-     * Return all locations having the same category
-     */
-    List<Location> findByCategory(String category);
 
     /**
      * Return all locations having the same size

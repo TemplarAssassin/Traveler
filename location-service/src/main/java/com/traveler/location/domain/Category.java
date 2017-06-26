@@ -1,32 +1,49 @@
 package com.traveler.location.domain;
 
+import javax.persistence.*;
+import java.util.List;
+
 /**
  * Created by yuzhou.xu on 6/18/17.
  */
-public enum Category {
-    UNKNOWN("NONE"),
-    ISLAND("ISLAND"),
-    NATIONAL_PARK("NATIONAL PARK");
+@Entity
+@Table(name = "CATEGORY")
+public class Category {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column
+    private Long id;
 
-    private final String value;
+    @Column(nullable =  false)
+    private String name;
 
-    Category(String value) {
-        this.value = value;
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "categories"
+    )
+    List<Location> locations;
+
+    public Long getId() {
+        return id;
     }
 
-    public String getValue() {
-        return value;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public static Category parse(String value) {
-        Category category = null;
-        for (Category c : Category.values()) {
-            if (c.getValue().equals(value.toUpperCase())) {
-                category = c;
-                return category;
-            }
-        }
+    public String getName() {
+        return name;
+    }
 
-        return Category.UNKNOWN;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
 }

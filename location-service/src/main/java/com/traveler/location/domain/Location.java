@@ -17,8 +17,11 @@ public class Location implements Serializable{
     @Column(nullable = false)
     private String name;
 
-    @Column
-    private String category;
+    @ManyToMany(
+            fetch = FetchType.LAZY
+    )
+    @JoinTable(name = "location_category", joinColumns = @JoinColumn(name = "location_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+    private Set<Category> categories;
 
     @Column
     private String size;
@@ -31,7 +34,6 @@ public class Location implements Serializable{
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-
     @JsonIgnore
     @JoinColumn(name = "PARENT_ID")
     private Set<Location> subLocations;
@@ -60,14 +62,6 @@ public class Location implements Serializable{
         this.subLocations = subLocations;
     }
 
-    public Category getCategory() {
-        return Category.parse(this.category);
-    }
-
-    public void setCategory(Category category) {
-        this.category = category.getValue();
-    }
-
     public Size getSize() {
         return Size.parse(this.size);
     }
@@ -82,5 +76,13 @@ public class Location implements Serializable{
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
