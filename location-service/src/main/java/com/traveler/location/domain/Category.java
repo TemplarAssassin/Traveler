@@ -21,7 +21,7 @@ public class Category {
             fetch = FetchType.LAZY,
             mappedBy = "categories"
     )
-    List<Location> locations;
+    private List<Location> locations;
 
     public Long getId() {
         return id;

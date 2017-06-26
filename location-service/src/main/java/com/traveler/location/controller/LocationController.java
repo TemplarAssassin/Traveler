@@ -37,7 +37,7 @@ public class LocationController {
         return locationService.findLocationBySize(size);
     }
 
-    @RequestMapping(path = "category/{category}", method = RequestMethod.GET)
+    @RequestMapping(path = "category/{categoryId}", method = RequestMethod.GET)
     public List<Location> getLocationByCategory(@PathVariable Long categoryId) {
         return locationService.findLocationByCategory(categoryId);
     }

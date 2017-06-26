@@ -17,6 +17,7 @@ public class Location implements Serializable{
     @Column(nullable = false)
     private String name;
 
+    @JsonIgnore
     @ManyToMany(
             fetch = FetchType.LAZY
     )
