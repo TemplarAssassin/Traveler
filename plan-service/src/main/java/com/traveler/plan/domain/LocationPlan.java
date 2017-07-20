@@ -1,5 +1,6 @@
 package com.traveler.plan.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -10,9 +11,13 @@ import java.util.Date;
 @Document
 public class LocationPlan {
 
+    @Id
     private Long locationId;
+
     private String locationName;
+
     private Date startDate;
+
     private Date endDate;
 
     public Long getLocationId() {
@@ -33,5 +38,17 @@ public class LocationPlan {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 }

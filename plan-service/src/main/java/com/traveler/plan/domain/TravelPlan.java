@@ -1,8 +1,8 @@
 package com.traveler.plan.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +13,6 @@ import java.util.List;
 public class TravelPlan {
 
     @Id
-    private Long planId;
-
     private Long groupId;
 
     private List<LocationPlan> locationPlans;
@@ -22,10 +20,6 @@ public class TravelPlan {
     private Date startDate;
 
     private Date endDate;
-
-    public Long getPlanId() {
-        return planId;
-    }
 
     public Long getGroupId() {
         return groupId;
